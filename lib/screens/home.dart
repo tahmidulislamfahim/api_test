@@ -1,6 +1,5 @@
-import 'dart:convert';
+import 'package:api_test/services/userApi.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:api_test/models/user.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,16 +11,17 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<User> users = [];
 
-  void fetchUsers() async {
-    final url = Uri.https('randomuser.me', '/api/', {'results': '5'});
-    final response = await http.get(url);
-    final body = response.body;
-    final json = jsonDecode(body);
+  Future<void> fetchUsers() async {
+    final response = await Userapi.fetchUsers();
     setState(() {
-      users = (json['results'] as List)
-          .map((userJson) => User.fromJson(userJson))
-          .toList();
+      users = response;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUsers();
   }
 
   @override
@@ -77,10 +77,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             );
           },
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: fetchUsers,
-          child: const Icon(Icons.download),
         ),
       ),
     );
