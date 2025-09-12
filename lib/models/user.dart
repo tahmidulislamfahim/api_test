@@ -13,6 +13,8 @@ class User {
   final String registrationDate;
   final String registrationAge;
   final String nat;
+  final String lat;
+  final String long;
 
   User({
     required this.title,
@@ -29,6 +31,8 @@ class User {
     required this.registrationDate,
     required this.registrationAge,
     required this.nat,
+    required this.lat,
+    required this.long,
   });
 
   String get fullName => '$title $firstName $lastName';
@@ -49,6 +53,8 @@ class User {
       registrationDate: json['registered']['date'] ?? '',
       registrationAge: json['registered']['age']?.toString() ?? '',
       nat: json['nat'] ?? '',
+      lat: json['location']['coordinates']['latitude'] ?? '',
+      long: json['location']['coordinates']['longitude'] ?? '',
     );
   }
 }

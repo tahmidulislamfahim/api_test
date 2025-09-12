@@ -1,3 +1,4 @@
+import 'package:api_test/screens/map.dart';
 import 'package:api_test/services/userApi.dart';
 import 'package:flutter/material.dart';
 import 'package:api_test/models/user.dart';
@@ -10,7 +11,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<User> users = [];
-
   Future<void> fetchUsers() async {
     final response = await Userapi.fetchUsers();
     setState(() {
@@ -68,6 +68,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MapScren(user: user),
+                          ),
+                        );
+                      },
+                      child: Text('Show Location'),
+                    ),
                     TextButton(
                       onPressed: () => Navigator.pop(context),
                       child: const Text('Close'),
