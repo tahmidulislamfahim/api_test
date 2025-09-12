@@ -46,6 +46,35 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               title: Text(user.fullName),
               subtitle: Text(user.email),
+              onTap: () => showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Text(user.fullName),
+                  content: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("gender: ${user.gender}"),
+                        Text("phone: ${user.phone}"),
+                        Text("city: ${user.city}"),
+                        Text("country: ${user.country}"),
+                        Text("date of birth: ${user.dateOfBirth}"),
+                        Text("age: ${user.age}"),
+                        Text("registration date: ${user.registrationDate}"),
+                        Text("registration age: ${user.registrationAge}"),
+                        Text("nationality: ${user.nat}"),
+                      ],
+                    ),
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text('Close'),
+                    ),
+                  ],
+                ),
+              ),
             );
           },
         ),
